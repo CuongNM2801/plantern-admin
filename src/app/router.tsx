@@ -1,10 +1,20 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import Login from "../features/auth/Login";
 import Dashboard from "../features/dashboard/Dashboard";
+import TreeManagement from "../features/tree/TreeManagement";
+import PlanManagement from "../features/plan/PlanManagement";
+import UserManagement from "../features/user/UserManagement";
+import OrderManagement from "../features/order/OrderManagement";
+
+const isLoggedIn = false; // TODO: sau này thay bằng auth thật
 
 export const router = createBrowserRouter([
+    {
+        path: "/",
+        element: isLoggedIn ? (<Navigate to={"/admin"} replace />) : (<Navigate to={"/login"} replace />)
+    },
     {
         element: <AuthLayout />,
         children: [
@@ -15,7 +25,11 @@ export const router = createBrowserRouter([
         path: "/admin",
         element: <AdminLayout />,
         children: [
-            {index: true, element: <Dashboard />}
+            {index: true, element: <Dashboard />},
+            {path: "trees", element: <TreeManagement />},
+            {path: "plans", element: <PlanManagement />},
+            {path: "users", element: <UserManagement />},
+            {path: "orders", element: <OrderManagement />}
         ]
     }
 ])
