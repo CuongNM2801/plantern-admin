@@ -16,7 +16,12 @@ export default function Dashboard() {
           change="8.5% Up from yesterday"
           icon={<Users />}
         />
-        <StatCard title="Total Premium Upgrade" value={10293} change="+1.3% Up from past week" icon={<Box />} />
+        <StatCard
+          title="Total Premium Upgrade"
+          value={10293}
+          change="1.3% Up from past week"
+          icon={<Box />}
+        />
         <StatCard
           title="Total Tree Sales"
           value={89000}
@@ -33,8 +38,8 @@ export default function Dashboard() {
         />
       </div>
 
-        <RevenueChart />
-        <DealsTable />
-      </div>
-  )
+      <RevenueChart />
+      <DealsTable />
+    </div>
+  );
 }
