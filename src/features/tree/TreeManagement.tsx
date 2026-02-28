@@ -8,7 +8,7 @@ const mockTrees = Array.from({ length: 4780 }, (_, i) => ({
   image: "https://via.placeholder.com/32",
   name: `Tree ${i + 1}`,
   category: i % 2 === 0 ? "Basic" : "Rare",
-  price: i % 2 === 0 ? 0 : i %3 === 10000 ? 50000 : 100000,
+  price: i % 2 === 0 ? 0 : i % 3 === 10000 ? 50000 : 100000,
   sales: Math.floor(Math.random() * 500),
   uploadDate: "13/12/2025",
 }));
@@ -94,7 +94,9 @@ export default function TreeManagement() {
                 <td>{tree.sales}</td>
                 <td>{tree.uploadDate}</td>
                 <td className="space-x-2">
-                  <button className="px-2 py-1 border rounded hover:bg-gray-200 transition-all duration-200 hover:scale-105 active:scale-95"><SquarePen size={20} /></button>
+                  <button className="px-2 py-1 border rounded hover:bg-gray-200 transition-all duration-200 hover:scale-105 active:scale-95">
+                    <SquarePen size={20} />
+                  </button>
                   <button className="px-2 py-1 border rounded hover:bg-red-200 transition-all duration-200 hover:scale-105 active:scale-95">
                     <Trash2 size={20} color="tomato" />
                   </button>
@@ -120,6 +122,7 @@ export default function TreeManagement() {
         />
       </div>
 
+      {/* Modal Add tree or Update tree */}
       {isOpen && <TreeModal onClose={() => setIsOpen(false)} />}
     </div>
   );
