@@ -59,8 +59,8 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: Props) {
       {/* HEADER: Logo + Toggle */}
       <div className="h-16 flex items-center justify-between px-4">
         {!isCollapsed && (
-          <span className="text-lime-500 font-bold text-xl">
-            <img src={Logo} alt="Plantern Logo" className="h-6 w-auto" />
+          <span className="text-lime-500 font-bold text-xl hover:cursor-pointer">
+            <img src={Logo} alt="Plantern Logo" className="h-6 w-auto" onClick={() => navigate("/admin")} />
           </span>
         )}
 

@@ -1,10 +1,25 @@
 import { X } from "lucide-react";
+import { useRef, useState } from "react";
 
 interface Props {
   onClose: () => void;
 }
 
 export default function TreeModal({ onClose }: Props) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [files, setFiles] = useState<FileList | null>(null);
+
+  const handleFiles = (selectedFiles: FileList | null) => {
+    if (selectedFiles && selectedFiles.length > 0) {
+      setFiles(selectedFiles);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    handleFiles(e.dataTransfer.files);
+  };
+
   return (
     <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
       <div className="bg-white w-[800px] rounded-2xl p-8 relative">
@@ -39,9 +54,36 @@ export default function TreeModal({ onClose }: Props) {
           <div>
             <label className="text-sm">3D Model Upload</label>
 
-            <div className="bg-lime-300 rounded-xl p-10 text-center mt-2">
-              Drag file here
+            <div
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleDrop}
+              onClick={() => fileInputRef.current?.click()}
+              className="
+              mt-2 border-2 border-dashed border-gray-300 rounded-xl p-10 text-center cursor-pointer
+              hover:border-lime-400 hover:bg-lime-50 transition-all duration-200">
+              {files ? (
+                <div className="text-sm text-gray-600">
+                  {files.length} file(s) selected
+                </div>
+              ) : (
+                <>
+                  <p className="text-gray-500">Drag folder here</p>
+                  <p className="text-xs text-gray-400 mt-2">
+                    or click to choose
+                  </p>
+                </>
+              )}
             </div>
+
+            {/* Hidden input */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              className="hidden"
+              multiple
+              webkitdirectory="true"
+              onChange={(e) => handleFiles(e.target.files)}
+            />
           </div>
         </div>
 
